@@ -1,9 +1,9 @@
 window.onload = onGet;
 var locations = [];
+
 function onGet() {
     const url = "https://static.pipezero.com/covid/data.json";
     var headers = {};
-
     fetch(url, {
         method: "GET",
         mode: "cors",
@@ -16,11 +16,16 @@ function onGet() {
             return response.json();
         })
         .then((data) => {
-            locations = data["locations"];
-           console.log(locations);
+            for(let i = 0; i<data["locations"].length; i++)
+            {
+                locations.push(data["locations"][i])
+            }
+            setTimeout(function(){ $(".display").click(); }, 100);
+            setTimeout(function(){ $(".display").click(); }, 100);
         })
         .catch(function (error) {
             console.log(error);
+            
         });
 }
 
@@ -44,121 +49,7 @@ function datatables() {
                 'value': 'Tử vong'
             }
         ],
-        locations:[
-            {
-                "name": "TP. Hồ Chí Minh",
-                "death": 12220,
-                "treating": 0,
-                "cases": 303995,
-                "recovered": 0,
-                "casesToday": 5446
-              },
-              {
-                "name": "Bình Dương",
-                "death": 1411,
-                "treating": 0,
-                "cases": 160697,
-                "recovered": 0,
-                "casesToday": 3651
-              },
-              {
-                "name": "Đồng Nai",
-                "death": 325,
-                "treating": 0,
-                "cases": 35618,
-                "recovered": 0,
-                "casesToday": 768
-              },
-              {
-                "name": "Long An",
-                "death": 348,
-                "treating": 0,
-                "cases": 28531,
-                "recovered": 0,
-                "casesToday": 327
-              },
-              {
-                "name": "Tiền Giang",
-                "death": 304,
-                "treating": 0,
-                "cases": 11830,
-                "recovered": 0,
-                "casesToday": 161
-              },
-              {
-                "name": "Đồng Tháp",
-                "death": 129,
-                "treating": 0,
-                "cases": 7869,
-                "recovered": 0,
-                "casesToday": 59
-              },
-              {
-                "name": "Khánh Hòa",
-                "death": 84,
-                "treating": 0,
-                "cases": 7448,
-                "recovered": 0,
-                "casesToday": 44
-              },
-              {
-                "name": "TP. Hồ Chí Minh",
-                "death": 12220,
-                "treating": 0,
-                "cases": 303995,
-                "recovered": 0,
-                "casesToday": 5446
-              },
-              {
-                "name": "Bình Dương",
-                "death": 1411,
-                "treating": 0,
-                "cases": 160697,
-                "recovered": 0,
-                "casesToday": 3651
-              },
-              {
-                "name": "Đồng Nai",
-                "death": 325,
-                "treating": 0,
-                "cases": 35618,
-                "recovered": 0,
-                "casesToday": 768
-              },
-              {
-                "name": "Long An",
-                "death": 348,
-                "treating": 0,
-                "cases": 28531,
-                "recovered": 0,
-                "casesToday": 327
-              },
-              {
-                "name": "Tiền Giang",
-                "death": 304,
-                "treating": 0,
-                "cases": 11830,
-                "recovered": 0,
-                "casesToday": 161
-              },
-              {
-                "name": "Đồng Tháp",
-                "death": 129,
-                "treating": 0,
-                "cases": 7869,
-                "recovered": 0,
-                "casesToday": 59
-              },
-              {
-                "name": "Khánh Hòa",
-                "death": 84,
-                "treating": 0,
-                "cases": 7448,
-                "recovered": 0,
-                "casesToday": 44
-              }
-        ],
-        selectedRows: [],
+        locations: locations,
 
         open: false,
         
@@ -174,17 +65,6 @@ function datatables() {
                 columns.forEach(column => {
                     column.classList.add('hidden');
                 });
-            }
-        },
-
-        getRowDetail($event, id) {
-            let rows = this.selectedRows;
-
-            if (rows.includes(id)) {
-                let index = rows.indexOf(id);
-                rows.splice(index, 1);
-            } else {
-                rows.push(id);
             }
         }
     }
